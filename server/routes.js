@@ -1,11 +1,10 @@
 'use strict'
 const Router = require('koa-router')
 const koaBody = require('koa-body')
-const jwt = require('./utils/jwt')
+const jwt = require('./middleware/jwt')
+const errorHandling = require('./middleware/errorHandling')
 const auth = require('./middleware/auth')
 const guest = require('./middleware/guest')
-const config = require('./config')
-const errorHandling = require('./middleware/errorHandling')
 const controllers = require('./controllers/index')
 
 const router = new Router({ prefix: '/api/v1' })
