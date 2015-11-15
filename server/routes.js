@@ -12,19 +12,29 @@ const router = new Router({ prefix: '/api/v1' })
 router.use(koaBody())
 router.use(jwt())
 router.use(errorHandling())
-
+/*
+|--------------------------------------------------------------------------
+| API Index
+|--------------------------------------------------------------------------
+*/
 router.get('/', function *() {
 	this.body = { message: 'Hello from the API.' }
 })
+/*
+|--------------------------------------------------------------------------
+| Auth routes
+|--------------------------------------------------------------------------
+*/
 router.post('/auth/register', guest, controllers.auth.register)
 router.post('/auth/login', guest, controllers.auth.login)
 router.get('/auth/logout', auth, controllers.auth.logout)
-router.post('/me', auth, function *() {
-	const data = this.user
-	this.body = data
-})
+/*
+|--------------------------------------------------------------------------
+| Catch undefined api endpoints.
+|--------------------------------------------------------------------------
+*/
 router.all('*', function *() {
-	this.throw('Not Found.', 404)
+	this.throw('Unknow endpoint.', 404)
 })
 
 module.exports = router
