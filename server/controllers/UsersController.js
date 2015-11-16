@@ -1,5 +1,6 @@
 'use strict'
 const User = require('../models/User')
+const delay = require('../utils/delay')
 
 const UsersController = {
 
@@ -14,6 +15,7 @@ const UsersController = {
 			user = yield user.findByUsername(username)
 
 			if(user) {
+				yield delay(1000) // Test
 				this.body = user.toJson()
 			}
 		} else
