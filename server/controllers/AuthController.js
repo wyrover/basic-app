@@ -39,7 +39,7 @@ const AuthController = {
 				const match = yield user.comparePassword(password)
 				if(match) {
 					const token = jwt.sign(user.toJson(), config.jwt.secret)
-					this.body = { token: token }
+					this.body = { user: user.toJson(), token: token }
 				}
 				else
 					this.throw('Bad credentials.', 422)
@@ -49,9 +49,13 @@ const AuthController = {
 			this.throw('Unprocessable Entity.', 422)
 	},
 
-	logout: function *() {
+	me: function *() {
+		this.body = this.user
+	},
 
-	}
+	logout: function *() {
+		//
+	},
 
 }
 
