@@ -22,7 +22,6 @@ export function configRouter(router) {
 		},
 		'/auth/logout': {
 			name: 'auth.logout',
-			auth: true,
 			component: require('./components/auth/logout'),
 		},
 		'/users/:username': {
@@ -30,7 +29,8 @@ export function configRouter(router) {
 			title: 'Profile',
 			component: require('./components/profile/index.vue'),
 			subRoutes: {
-				posts: {
+				'posts': {
+					name: 'profile.posts',
 					component: require('./components/profile/posts.vue'),
 				},
 			},
@@ -38,7 +38,7 @@ export function configRouter(router) {
 		'*': {
 			title: '404 Not Found',
 			component: require('./components/errors/404.vue'),
-		}
+		},
 	})
 
 	router.redirect({

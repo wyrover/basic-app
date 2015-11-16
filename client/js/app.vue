@@ -11,6 +11,8 @@
 </template>
 
 <script>
+	import localForage from 'localforage'
+	localForage.setDriver(localForage.LOCALSTORAGE)
 	export default {
 
 		data() {
@@ -30,31 +32,30 @@
 		methods: {
 			tryLogin(args = {}) {
 				if(args.user && args.token) {
-					localStorage.setItem('user', args.user)
-					localStorage.setItem('token', args.token)
-					this.user = JSON.parse(args.user)
-					this.token = args.token
-					this.authenticated = true
-					this.$route.router.go({ name: 'home' })
-				} else {
-					const user = localStorage.getItem('user')
-					const token = localStorage.getItem('token')
-					if(user && token) {
-						this.user = JSON.parse(user)
-						this.token = token
+					localForage.setItem('auth', args).then(val => {
+						this.user = args.user
+						this.token = args.token
 						this.authenticated = true
-					} else
-						this.destroyLogin()
+						this.$route.router.go({ name: 'home' })
+					}).catch(err => this.destroyLogin())
+				} else {
+					localForage.getItem('auth').then(val => {
+						if(val.user && val.token) {
+							this.user = val.user
+							this.token = val.token
+							this.authenticated = true
+						} else this.destroyLogin()
+					}).catch(err => this.destroyLogin())
 				}
 			},
 
 			destroyLogin() {
-				localStorage.removeItem('user')
-				localStorage.removeItem('token')
-				this.user = null
-				this.token = null
-				this.authenticated = false
-				this.$route.router.go({ name: 'home' })
+				localForage.removeItem('auth').then(() => {
+					this.user = null
+					this.token = null
+					this.authenticated = false
+					this.$route.router.go({ name: 'home' })
+				}).catch(err => alert('Something went wrong. Try again.'))
 			},
 		},
 

@@ -2,9 +2,9 @@
 	<main>
 		<h2>Registration page</h2>
 		<form @submit.prevent="register">
-			<input type="text" placeholder="Username" v-model="user.username" />
-			<input type="email" placeholder="Email" v-model="user.email" />
-			<input type="password" placeholder="Password" v-model="user.password" />
+			<input type="text" placeholder="Username" v-model="user.username">
+			<input type="email" placeholder="Email" v-model="user.email">
+			<input type="password" placeholder="Password" v-model="user.password">
 			<button type="submit">Sign up</button>
 		</form>
 	</main>
