@@ -12,6 +12,7 @@
 
 <script>
 	export default {
+
 		data() {
 			return {
 				user: null,
@@ -27,8 +28,7 @@
 		},
 
 		methods: {
-			tryLogin(args) {
-				args = args || {}
+			tryLogin(args = {}) {
 				if(args.user && args.token) {
 					localStorage.setItem('user', args.user)
 					localStorage.setItem('token', args.token)
@@ -55,7 +55,8 @@
 				this.token = null
 				this.authenticated = false
 				this.$route.router.go({ name: 'home' })
-			}
+			},
 		},
+
 	}
 </script>
