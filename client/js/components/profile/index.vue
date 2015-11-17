@@ -13,7 +13,7 @@
 
 		route: {
 			data({ to: { params: { username } }, next }) {
-				this.$http.get('/api/v1/users/' + username, (user) => {
+				this.$http.get('users/' + username, (user) => {
 					next({ user: user, loadingUser: false })
 				}).error((err) => {
 					this.$route.router.go({ name: 'home' })

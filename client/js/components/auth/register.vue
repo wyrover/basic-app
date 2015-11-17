@@ -25,7 +25,7 @@
 
 		methods: {
 			register() {
-				this.$http.post('/api/v1/auth/register', this.user, (response) => {
+				this.$http.post('auth/register', this.user, (response) => {
 					if(response.user && response.message) {
 						alert(response.message)
 						this.$route.router.go({ name: 'auth.login' })

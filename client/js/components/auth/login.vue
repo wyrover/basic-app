@@ -24,7 +24,7 @@
 
 		methods: {
 			login() {
-				this.$http.post('/api/v1/auth/login', this.credentials, (response) => {
+				this.$http.post('auth/login', this.credentials, (response) => {
 					if(response.user && response.token) {
 						const user = response.user
 						const token = 'Bearer ' + response.token
