@@ -12,7 +12,10 @@ gulp.task('js', () => {
 					{
 						test: /\.js$/,
 						exclude: /node_modules/,
-						loader: 'babel?presets[]=es2015',
+						loader: 'babel',
+						query: {
+							presets: ['es2015'],
+						},
 					},
 					{
 						test: /\.vue$/,
