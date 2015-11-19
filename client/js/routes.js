@@ -60,3 +60,8 @@ export function configRouter(router) {
 		transition.next()
 	})
 }
+
+function view(path) {
+	path = path.split('.').join('/')
+	return resolve => require(['./components/' + path + '.vue'], resolve)
+}
