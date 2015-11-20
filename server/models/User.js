@@ -32,7 +32,7 @@ class User {
 					r.table(TABLE).filter(
 						r.row('username').eq(this.username)
 						.or(r.row('email').eq(this.email))
-						).isEmpty(),
+					).isEmpty(),
 					r.table(TABLE).insert(this),
 					{ error: { reason: 'User exists.' } }
 				).run()
