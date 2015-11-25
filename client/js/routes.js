@@ -1,4 +1,7 @@
 'use strict'
+import localForage from 'localforage'
+localForage.setDriver(localForage.LOCALSTORAGE)
+
 const appName = 'App'
 const appSuffix = ' | ' + appName
 
@@ -45,23 +48,18 @@ export function configRouter(router) {
 		'/users/:username': '/users/:username/posts',
 	})
 
-	router.beforeEach((transition) => {
-		if(transition.to.title)
-			document.title = transition.to.title + appSuffix
-		else
-			document.title = appName
+	router.beforeEach(transition => {
+		localForage.getItem('auth').then(val => {
+			if(transition.to.title)
+				document.title = transition.to.title + appSuffix
+			else
+				document.title = appName
 
-		const token = localStorage.getItem('token')
-		if(transition.to.auth && (!token || token === null))
-			transition.redirect({ name: 'auth.login' })
-		if(transition.to.guest && token)
-			transition.redirect({ name: 'home' })
-
-		transition.next()
+			if(transition.to.auth && !val)
+				transition.redirect({ name: 'auth.login' })
+			else if(transition.to.guest && val)
+				transition.redirect({ name: 'home' })
+			else transition.next()
+		}).catch(err => console.error(err))
 	})
-}
-
-function view(path) {
-	path = path.split('.').join('/')
-	return resolve => require(['./components/' + path + '.vue'], resolve)
 }

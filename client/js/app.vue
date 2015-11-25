@@ -40,7 +40,7 @@
 					}).catch(err => this.destroyLogin())
 				} else {
 					localForage.getItem('auth').then(val => {
-						if(val.user && val.token) {
+						if(val && val.user && val.token) {
 							this.user = val.user
 							this.token = val.token
 							this.authenticated = true
@@ -55,7 +55,7 @@
 					this.token = null
 					this.authenticated = false
 					this.$route.router.go({ name: 'home' })
-				}).catch(err => alert('Something went wrong. Try again.'))
+				}).catch(err => console.error('Something went wrong. Try again.'))
 			},
 		},
 

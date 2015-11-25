@@ -15,7 +15,7 @@ const router = new VueRouter({
 
 configRouter(router)
 
-Vue.config.debug = true
+//Vue.config.debug = true
 Vue.http.options.root = '/api/v1'
 //Vue.http.interceptors.push(jwt)
 
