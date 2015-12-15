@@ -24,18 +24,14 @@
 
 		methods: {
 			login() {
-				this.$http.post('auth/login', this.credentials, (response) => {
+				this.$http.post('auth/login', this.credentials, response => {
 					if(response.user && response.token) {
 						const user = response.user
 						const token = 'Bearer ' + response.token
 
-						this.$dispatch('userHasLoggedIn', { user: user, token: token })
-					} else {
-						alert('Something went bad.')
-					}
-				}).error((err) => {
-					alert(err.message)
-				})
+						this.$dispatch('userHasLoggedIn', { user, token })
+					} else alert('Something went bad.')
+				}).error(err => alert(err.message))
 			},
 		},
 

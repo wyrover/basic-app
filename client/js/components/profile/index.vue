@@ -13,9 +13,9 @@
 
 		route: {
 			data({ to: { params: { username } }, next }) {
-				this.$http.get('users/' + username, (user) => {
-					next({ user: user, loadingUser: false })
-				}).error((err) => {
+				this.$http.get('users/' + username, user => {
+					next({ user, loadingUser: false })
+				}).error(err => {
 					this.$route.router.go({ name: 'home' })
 				})
 			}

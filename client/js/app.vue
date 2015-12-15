@@ -25,7 +25,7 @@
 
 		ready() {
 			this.tryLogin()
-			this.$on('userHasLoggedIn', (args) => this.tryLogin(args))
+			this.$on('userHasLoggedIn', args => this.tryLogin(args))
 			this.$on('userHasLoggedOut', () => this.destroyLogin())
 		},
 
